@@ -2,9 +2,7 @@
 var fs = require('fs');
 var randoWords = require('random-words');
 var textTOWrite = "Hello World\n";
-var randoSentence = randoWords(5) + "\n";
-
-
+var randoSentence = randoWords({ min: 3, max: Math.random() + 10 , join: " "}) + ".\n";
 
 
 var callback = function(err) { 
@@ -13,7 +11,7 @@ var callback = function(err) {
 		console.log("Error appending file: " + err);
 	}
 	else {
-		console.log("Success!");
+		console.log("File successfully appended!");
 	}
 }
 
@@ -21,6 +19,19 @@ var callback = function(err) {
 fs.appendFile("Hello.txt", textTOWrite, callback);
 fs.appendFile("RandomWords.txt", randoSentence, callback);
 
+
+//print out how many times the file has been run
+var content = fs.readFileSync("RandomWords.txt", 'utf8');
+var count = 1;
+
+for(var i = content.length; i > 0; i--)
+{
+	if(content[i] == "\n") {
+		count++;
+	}
+}
+
+console.log("repeatHelloWorld.js has been ran " + count + " times.");
 
 
 
