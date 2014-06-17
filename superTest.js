@@ -1,32 +1,88 @@
-// var request = require('supertest')
-//   , express = require('express');
+var request = require('supertest');
 
-// var app = express();
+var log = require('custom-logger').config({ level: 0 });
+log.info().config({ color: 'green' });
 
-// app.get('/user', function(req, res){
-//   res.send(200, { name: 'tobi' });
-// });
+var googleAPIkey = 'AIzaSyCV3o4CmdEQxIzAzdHh2YhFgT7EMyKFukE';
+var googleAPI = request('https://maps.googleapis.com/maps/api/geocode/json?address=');
 
-// request(app)
-//   .get('/user')
-//   .expect('Content-Type', /json/)
-//   .expect('Content-Length', '20')
-//   .expect(200)
-//   .end(function(err, res){
-//     if (err) throw err;
-//   });
+var forcastAPIkey = '52de31889ae1a7ecede6865556b3bb85';
+var forcastAPI = request('https://api.forecast.io/forecast/');
 
-// read physical adrss from the command line
+var latLng = [];
+
+
+
+
+
+
+
+//read physical adrss from the command line
 var sys = require("sys");
 
 var stdin = process.openStdin();
 
-stdin.addListener("data", function(d) {
-    // note:  d is an object, and when converted to a string it will
-    // end with a linefeed.  so we (rather crudely) account for that  
-    // with toString() and then substring() 
-    console.log("you entered: [" + 
-        d.toString().substring(0, d.length-1) + "]");
+	stdin.addListener("data", function(d) {
+    	
+    	var address = d.toString().substring(0, d.length-1).replace(/ /g, '+') + "&key=";
+    	log.info("Formatted address: " + address);
+
+    	getLatLong(address, getWeather);
+    	//address[0].replace(' ', '+');
+    //log.info(d.toString().split(","));
   });
 
 //add listener with the type sys library
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getLatLong(address, callback) {
+	googleAPI
+	.get(address + googleAPIkey)		//combines loc and APIkey into correct format
+	.expect(200)
+	.end(function(err, res) {
+		if(err) {
+			log.warning("Did not run correctly");
+		}
+		else {
+			log.info("Success");
+
+			latLng = [res.body.results[0].geometry.location.lat, res.body.results[0].geometry.location.lng];
+			
+			log.info("Latitude: " + latLng[0]);
+			log.info("Longitude: " + latLng[1]);
+		}
+		callback(latLng[0], latLng[1]); // this is getWeather()
+	});
+}
+
+
+function getWeather(lat, lng) {
+
+	forcastAPI
+	.get(forcastAPIkey + "/" + lat + "," + lng)
+	.expect(200)
+	.end(function(err, res) {
+		if(err) {
+			log.warning("Did not run correctly");
+		}
+		else {
+			log.info("Success");
+			log.info(JSON.stringify(res.body.currently, null, 16));
+		}
+			
+		});
+
+}
+
