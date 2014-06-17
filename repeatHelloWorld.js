@@ -33,6 +33,23 @@ for(var i = content.length; i > 0; i--)
 
 console.log("repeatHelloWorld.js has been ran " + count + " times.");
 
+/*
+// more standard way of programming this
+
+GetLinesInFile(function(numTimesRun) {
+	var ess = numTimesRun == 1 ? '':'s';
+	console.log("This has been run " + numTimesRun + " time" + ess + ". ")
+})
+funciton GetLinesInFile(numLoinesCallBack){
+	fs.readFile(logFile, 'utf8', function(err, data) {
+		if(err) {
+		return console.log("Rroblem getting lne count in file: " + err);
+		}
+		numLinesCallBack(data.split("\n").length - 1)
+	})
+}
+*/
+
 
 
 
