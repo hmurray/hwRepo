@@ -1,6 +1,6 @@
 {
   "name": "WriteWords",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Writes either 'Hello World' or random words to a file'",
   "main": "repeatHelloWorld.js",
   "scripts": {
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/eccarmichael/NodeAssignment/issues"
   },
-  "homepage": "https://github.com/eccarmichael/NodeAssignment"
+  "homepage": "https://github.com/eccarmichael/NodeAssignment",
+  "dependencies": {
+    "custom-logger": "^0.2.1",
+    "random-words": "^0.0.1",
+    "supertest": "^0.13.0"
+  },
+  "devDependencies": {}
 }
