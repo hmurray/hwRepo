@@ -1,0 +1,44 @@
+
+ --------------------------- 
+{
+          "time": 1403099813,
+          "summary": "Clear",
+          "icon": "clear-day",
+          "nearestStormDistance": 81,
+          "nearestStormBearing": 4,
+          "precipIntensity": 0,
+          "precipProbability": 0,
+          "temperature": 79.12,
+          "apparentTemperature": 79.12,
+          "dewPoint": 64.46,
+          "humidity": 0.61,
+          "windSpeed": 10.64,
+          "windBearing": 291,
+          "visibility": 10,
+          "cloudCover": 0.15,
+          "pressure": 1012.11,
+          "ozone": 317.86
+}
+ --------------------------- 
+
+ --------------------------- 
+Address: 1134+Deer+Trail+North,+Ramsey,+Nj&key={
+          "time": 1403099990,
+          "summary": "Clear",
+          "icon": "clear-day",
+          "nearestStormDistance": 81,
+          "nearestStormBearing": 4,
+          "precipIntensity": 0,
+          "precipProbability": 0,
+          "temperature": 79.14,
+          "apparentTemperature": 79.14,
+          "dewPoint": 64.39,
+          "humidity": 0.61,
+          "windSpeed": 10.74,
+          "windBearing": 291,
+          "visibility": 10,
+          "cloudCover": 0.15,
+          "pressure": 1012.12,
+          "ozone": 317.79
+}
+ --------------------------- 

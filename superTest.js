@@ -1,4 +1,5 @@
 var request = require('supertest');
+var fs = require('fs');
 
 var log = require('custom-logger').config({ level: 0 });
 log.info().config({ color: 'green' });
@@ -33,20 +34,6 @@ var stdin = process.openStdin();
   });
 
 //add listener with the type sys library
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function getLatLong(address, callback) {
 	googleAPI
 	.get(address + googleAPIkey)		//combines loc and APIkey into correct format
@@ -63,12 +50,12 @@ function getLatLong(address, callback) {
 			log.info("Latitude: " + latLng[0]);
 			log.info("Longitude: " + latLng[1]);
 		}
-		callback(latLng[0], latLng[1]); // this is getWeather()
+		callback(latLng[0], latLng[1], address); // this is getWeather()
 	});
 }
 
 
-function getWeather(lat, lng) {
+function getWeather(lat, lng, address) {
 
 	forcastAPI
 	.get(forcastAPIkey + "/" + lat + "," + lng)
@@ -79,10 +66,19 @@ function getWeather(lat, lng) {
 		}
 		else {
 			log.info("Success");
-			log.info(JSON.stringify(res.body.currently, null, 16));
+			/*Also append the current date and time, 
+			physical address, gps location, and 
+			current weather conditions to a file that 
+			is logging all the requested weather.*/
+			var textTOWrite = "\n --------------------------- \n" +
+							  "Address: " + address.replace(/'+'/g, " ") + 
+							  JSON.stringify(res.body.currently, null, 16) +
+							  "\n --------------------------- \n";
+
+			log.info(textTOWrite);
+			fs.appendFile("Weather.txt", textTOWrite);
 		}
 			
 		});
-
 }
 
