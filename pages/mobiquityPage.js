@@ -12,12 +12,14 @@ var firstResultSelector = "#rso li .r a";
 
 
 
-var GooglePage = function(theBrowser) {
+
+
+var Mobiquity = function(theBrowser) {
     browser = theBrowser;
-    log.info("Google Page initialized");
+    log.info("mobiquity Page initialized");
 
     // Custom Exported values here
-    this.location = "http://google.com/";
+    this.location = "http://mobiquityinc.com/";
     this.mobiquityLinkText = '<em>Mobiquity</em>: Enterprise Mobile Apps, Strategy &amp; Solutions';
 };
 
@@ -25,27 +27,25 @@ var GooglePage = function(theBrowser) {
 
 
 
-//types the string passed into it into google search box
-                                 //passing in "mobiquity" to searchString
-GooglePage.prototype.typeSearch = function(searchString, done) {
+
+
+
+mobiquityPage.prototype.typeSearch = function(searchString, done) {
     log.info("About to search for text: " + searchString);
 
-                            //Hard coded at top
     browser.waitForElementById(searchBoxInputById, function(err, el) {
         if(err) {
             log.err("Unable to find search box: " + err);
             done();
         }
-        else {      //typing "mobiquity"
+        else {
             el.sendKeys(searchString, function(err) {
-                if(err) {   
+                if(err) {
                     log.err("Unable to type text into search box: " + err);
                 }
                 else {
                     log.info("Successfully typed text: " + searchString);
                 }
-
-
                 done();
             });
         }
@@ -59,13 +59,12 @@ GooglePage.prototype.typeSearch = function(searchString, done) {
 
 
 
-
-GooglePage.prototype.getFirstLinkAnchorText = function(done) {
+mobiquityPage.prototype.getFirstLinkAnchorText = function(done) {
     var self = this;
     log.info("About to get first link anchor text");
-                                        //hardcoded at top
+    
     browser.waitForElementByCssSelector(firstResultSelector, function(err, el) {
-        if(err) {                                   // el is the results of the waitForElementByCssSelector function
+        if(err) {
             done(err);
         }
         else {
@@ -83,52 +82,20 @@ GooglePage.prototype.getFirstLinkAnchorText = function(done) {
 
 
 
-
-GooglePage.prototype.getLinkText = function(el, done) {
+mobiquityPage.prototype.getLinkText = function(el, done) {
     el.getAttribute("innerHTML", function(err, val) {
         if(err) {
             done(err);
         }
         else {
             done(null, val);
-                        //val is firstElementText in googleSearch.js 
         }
     });
 }
 
 
 
-GooglePage.prototype.clickFirstLink = function(done) {
-
-    log.warn("About to get click link anchor text");
-
-    done();
-    
-} // end clickFirstLink
 
 
 
-
- // clickElement(el, function() {
-            //     if(err) {
-
-            //         log.info("not clicked");
-            //         done(err);
-            //     }
-            //     else {
-            //         log.info("clicked");
-            //         //url(cb) -> cb(err, url))
-            //     }
-            //     done();
-            // });
-
-
-
-
-
-
-
-
-
-
-module.exports = GooglePage;
+module.exports = mobiquityPage;
