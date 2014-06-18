@@ -38,6 +38,7 @@ describe('Google Search - Basic Search', function() {
 
     after(function(done) {
         browser.quit().nodeify(done);
+        log.info("Closing down browser");
     });
 
 
@@ -59,6 +60,7 @@ describe('Google Search - Basic Search', function() {
         it('should display our page first', function(done) {
             log.info("About to open google home page");
 
+            //replace with google.get
             browser.get("http://google.com", function(err) {
                 if(err) {
                     log.error("Unable to get google home page: " + err);
@@ -91,14 +93,20 @@ describe('Google Search - Basic Search', function() {
 
 
 
-    describe('Click Link and Verify', function(done) {
-        it('should click the first link on the page', function(done) {
+    describe('Click Link and Verify', function(finalDone) {
+        it('should click the first link on the page', function(finalDone) {
+            
             log.warn("calling google.clickFistLink");
 
-             google.clickFirstLink( function() {
+            google.clickFirstLink( function(err) {
                 log.warn("AAAAAAAA CLICKING");
-                });
-             done();
+                if(err) {
+                    log.warning("Unable to click first result: " + err);
+                }
+                else {
+                 finalDone();
+                } 
+            });
          });
     });
 

@@ -98,11 +98,27 @@ GooglePage.prototype.getLinkText = function(el, done) {
 
 
 
-GooglePage.prototype.clickFirstLink = function(done) {
+GooglePage.prototype.clickFirstLink = function(finishedClickFirstLink) {
 
     log.warn("About to get click link anchor text");
 
-    done();
+    browser.waitForElementByCssSelector(firstResultSelector, function(err, el) {
+        log.warn("Inside waitForElement in clickFirstLink");
+
+            el.click(function(err, done) {
+                if(err) {
+                    log.warn("Inside if in el.click");
+                    done(err);
+                }
+                else {
+                    log.warn("Inside else in el.click");
+
+                    done();
+                }
+            })
+            finishedClickFirstLink();
+    });
+
     
 } // end clickFirstLink
 
