@@ -8,94 +8,17 @@ var browser;
 var searchBoxInputById = "gbqfq";
 var firstResultSelector = "#rso li .r a";
 
-
-
-
-
-
-
-var Mobiquity = function(theBrowser) {
+var mobiquityPage = function(theBrowser) {
     browser = theBrowser;
     log.info("mobiquity Page initialized");
 
     // Custom Exported values here
-    this.location = "http://mobiquityinc.com/";
-    this.mobiquityLinkText = '<em>Mobiquity</em>: Enterprise Mobile Apps, Strategy &amp; Solutions';
+    this.location = "http://www.mobiquityinc.com/";
+    this.mobiquityLinkText = 
+    '<em>Mobiquity</em>: Enterprise Mobile Apps, Strategy &amp; Solutions';
+    this.mobiquityPageTitle = 
+    'Enterprise Mobile Apps, Strategy & Solutions | Mobiquity';
 };
-
-
-
-
-
-
-
-
-mobiquityPage.prototype.typeSearch = function(searchString, done) {
-    log.info("About to search for text: " + searchString);
-
-    browser.waitForElementById(searchBoxInputById, function(err, el) {
-        if(err) {
-            log.err("Unable to find search box: " + err);
-            done();
-        }
-        else {
-            el.sendKeys(searchString, function(err) {
-                if(err) {
-                    log.err("Unable to type text into search box: " + err);
-                }
-                else {
-                    log.info("Successfully typed text: " + searchString);
-                }
-                done();
-            });
-        }
-    })
-}
-
-
-
-
-
-
-
-
-mobiquityPage.prototype.getFirstLinkAnchorText = function(done) {
-    var self = this;
-    log.info("About to get first link anchor text");
-    
-    browser.waitForElementByCssSelector(firstResultSelector, function(err, el) {
-        if(err) {
-            done(err);
-        }
-        else {
-            self.getLinkText(el, done);
-            done();
-        }
-    });
-}
-
-
-
-
-
-
-
-
-
-mobiquityPage.prototype.getLinkText = function(el, done) {
-    el.getAttribute("innerHTML", function(err, val) {
-        if(err) {
-            done(err);
-        }
-        else {
-            done(null, val);
-        }
-    });
-}
-
-
-
-
 
 
 module.exports = mobiquityPage;

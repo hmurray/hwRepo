@@ -98,45 +98,22 @@ GooglePage.prototype.getLinkText = function(el, done) {
 
 
 
-GooglePage.prototype.clickFirstLink = function(finishedClickFirstLink) {
+GooglePage.prototype.clickFirstLink = function(err, done) {
 
-    log.warn("About to get click link anchor text");
-
-    browser.waitForElementByCssSelector(firstResultSelector, function(err, el) {
-        log.warn("Inside waitForElement in clickFirstLink");
-
+    browser.waitForElementByCssSelector(firstResultSelector, function firstResults(err, el) {
             el.click(function(err, done) {
                 if(err) {
-                    log.warn("Inside if in el.click");
+                    log.error("finished el.click; failure " + err);
                     done(err);
                 }
                 else {
-                    log.warn("Inside else in el.click");
-
-                    done();
+                    log.info("finished el.click; Success");
+                    done(); 
                 }
-            })
-            finishedClickFirstLink();
+            });
     });
+}
 
-    
-} // end clickFirstLink
-
-
-
-
- // clickElement(el, function() {
-            //     if(err) {
-
-            //         log.info("not clicked");
-            //         done(err);
-            //     }
-            //     else {
-            //         log.info("clicked");
-            //         //url(cb) -> cb(err, url))
-            //     }
-            //     done();
-            // });
 
 
 
