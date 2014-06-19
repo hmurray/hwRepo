@@ -8,10 +8,6 @@ var browser;
 var searchBoxInputById = "gbqfq";
 var firstResultSelector = "#rso li .r a";
 
-
-
-
-
 var GooglePage = function(theBrowser) {
     browser = theBrowser;
     log.info("Google Page initialized");
@@ -20,10 +16,6 @@ var GooglePage = function(theBrowser) {
     this.location = "http://google.com/";
     this.mobiquityLinkText = '<em>Mobiquity</em>: Enterprise Mobile Apps, Strategy &amp; Solutions';
 };
-
-
-
-
 
 //types the string passed into it into google search box
                                  //passing in "mobiquity" to searchString
@@ -52,14 +44,6 @@ GooglePage.prototype.typeSearch = function(searchString, done) {
     })
 }
 
-
-
-
-
-
-
-
-
 GooglePage.prototype.getFirstLinkAnchorText = function(done) {
     var self = this;
     log.info("About to get first link anchor text");
@@ -75,15 +59,6 @@ GooglePage.prototype.getFirstLinkAnchorText = function(done) {
     });
 }
 
-
-
-
-
-
-
-
-
-
 GooglePage.prototype.getLinkText = function(el, done) {
     el.getAttribute("innerHTML", function(err, val) {
         if(err) {
@@ -96,32 +71,23 @@ GooglePage.prototype.getLinkText = function(el, done) {
     });
 }
 
+GooglePage.prototype.clickFirstLink = function(done) {
 
-
-GooglePage.prototype.clickFirstLink = function(err, done) {
-
-    browser.waitForElementByCssSelector(firstResultSelector, function firstResults(err, el) {
-            el.click(function(err, done) {
-                if(err) {
-                    log.error("finished el.click; failure " + err);
-                    done(err);
-                }
-                else {
-                    log.info("finished el.click; Success");
-                    done(); 
-                }
-            });
+    browser.waitForElementByCssSelector(firstResultSelector, function (err, el) {
+        el.click(function(err) {
+            if(err) {
+                log.error("finished el.click; failure " + err);
+                done(err);
+            }
+            else {
+                log.info("finished el.click; Success");
+                done();
+            }
+        });
     });
 }
 
-
-
-
-
-
-
-
-
-
-
 module.exports = GooglePage;
+
+
+

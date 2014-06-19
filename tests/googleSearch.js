@@ -15,9 +15,6 @@ var sessionurl;
 describe('Google Search - Basic Search', function() {
     this.timeout(bootstrap.MaxWaittime); // To get the app open in the emulator
 
-
-
-
     before(function(done) {
         google = new googlePage(browser);
         mobiquity = new mobiquityPage(browser);
@@ -37,27 +34,10 @@ describe('Google Search - Basic Search', function() {
         }).nodeify(done);
     });
 
-
-
-
     after(function(done) {
         browser.quit().nodeify(done);
         log.info("Closing down browser");
     });
-
-
-
-
-    it('has an initial empty test for kicks', function(done) {
-        done();
-    });
-
-
-
-
-
-
-
 
     describe('Mobiquity Search', function() {
 
@@ -97,61 +77,53 @@ describe('Google Search - Basic Search', function() {
         });
     }) // end second describe
 
-
-
     describe('Click Link and Verify', function () {
-        it('should click the first link on the page, then verify the url and page title', function clickAndVerifyIt(err, done) {
+        it('should click the first link on the page, then verify the url and page title', function(done) {
             
-            log.info("calling google.clickFistLink");
-
-            google.clickFirstLink(err, function(err) { 
+            log.info("calling google.clickFirstLink");
+            google.clickFirstLink(function(err) { 
                 log.info("finished clickFirstLink");
                 if(err) {
                     done(err);
                 }
                 else {
-                    verifyURL(err, function(err) {
+                    verifyURL(function(err) {
                         log.info("finished verifyURL");
                         if(err) {
+                            log.info('URL failed')
                             done(err);
                         }
                         else {
-                            verifyTitle(err, function(err) {
-                                log.info("finished VerifyTitle");
+                            log.info("URL passed");
+                            verifyTitle(function() {
+                                log.info("finished verifyTitle");
                                 if(err) {
                                     done(err);
                                 }
                                 else {
                                     done();
                                 }
-                            }); // VerifyTitle
+                            });
                         }
-                    }); // VerifyURL
+                    }); // verifyURL
                 }
             }); // clickFirstLink
-        
          }); // end it
     }); // end desc 3
-
-
-
-
-
 }); // end first describe
 
 
 // universal functions
-function verifyURL(err, done) {
-    browser.url( function(err, url) {
+function verifyURL(done) {
+    browser.url( function (err, url) {
         if(err) {
-            log.error("problem " + err);
+            log.error("browser.url: failed " + err);
             done(err);
         }
         else {
-            log.info("done with asserting URL and mobiquity.location");
-
             try {
                 assert.equal(url, mobiquity.location);
+                log.info("url assertation passed");
                 done();
             }
             catch (e) {
@@ -161,17 +133,17 @@ function verifyURL(err, done) {
     });
 }
 
-function verifyTitle(err, done) {
-    browser.title( function(err, title) {
+function verifyTitle(done) {
+    browser.title( function (err, title) {
         if(err) {
             log.error("problem " + err);
             done(err);
         }
         else {
-            log.info("done with asserting title and mobiquity.mobiquityPageTitle");
     
             try {
                 assert.equal(title, mobiquity.mobiquityPageTitle);
+                log.info("title assertation passed");
                 done();
             }
             catch (e) {
