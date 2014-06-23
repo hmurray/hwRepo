@@ -46,16 +46,9 @@ describe('3RB Login - Open Browser', function() {
 
     it('C8033 - Valid Login', function (done) {
         login.validLogin(function (err) {
-            // if(err) {
-            //     done(err);
-            // }
-            // else {
-            //     login.logout(function (err) {
-            //         done(err)
-            //     });
-            //}
             dashboard.clickDocument( function (err) {
 				log.info("finished clickDocument");
+                done();
 
             });
         });
