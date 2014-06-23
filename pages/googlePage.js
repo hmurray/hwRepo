@@ -1,6 +1,11 @@
+var bootstrap = require('../bootstrap');
+var browser = bootstrap.browser;
+var log = bootstrap.log;
+var should = bootstrap.should;
+var expect = bootstrap.chai.expect;
+var assert = require('assert');
 var webdriver = require('wd');
-var log = require('custom-logger').config({ level: 0 }); // TODO: Change to 2 for sauce
-var browser;
+var asserters = webdriver.asserters;
 
 // Page Elements Here
 // NOTE: No other customer page-specific names should be anywhere 
@@ -86,6 +91,9 @@ GooglePage.prototype.clickFirstLink = function(done) {
         });
     });
 }
+
+
+
 
 module.exports = GooglePage;
 

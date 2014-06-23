@@ -64,10 +64,6 @@ describe('Google Search - Basic Search', function() {
 
                                 log.info("Got element on page: " + firstElementText);
                                 assert.equal(firstElementText, google.mobiquityLinkText);
-                                //google.mobiquityLinkText = <em>Mobiquity</em>: 
-                                //Enterprise Mobile Apps, Strategy &amp; Solutions'
-                                //hardcoded in googlePage.js
-                                
                             }
                             done();
                         })

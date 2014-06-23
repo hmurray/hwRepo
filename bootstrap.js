@@ -5,10 +5,10 @@ exports.chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
 exports.chai.use(chaiAsPromised);
 exports.should = exports.chai.should();
-var wd = require('wd');
+exports.wd = require('wd');
 
 exports.log = require('custom-logger').config({ level: 0 }); // TODO: Change to 2 for sauce
-exports.log.info().config({ color: 'green', format: '<logInfoMessage>type="%event%" message="%message% </logInfoMessage>' });
+exports.log.info().config({ color: 'green' });
 
 exports.MaxWaitTime = 120000;
 
@@ -36,7 +36,7 @@ if(onSauce) {
     var username = 'mobiquity';
     var accessKey = '75b72184-3f8d-45d5-ae04-8d79d2b06ccb';
     pathToProject = sauceProjectPath;
-    exports.browser = wd.promiseChainRemote(host, port, username, accessKey);
+    exports.browser = exports.wd.promiseChainRemote(host, port, username, accessKey);
 
     exports.desired = {
         name:"Test Framework - Selenium wd",
@@ -47,13 +47,10 @@ if(onSauce) {
 }
 else { // Run the test locally
     pathToProject = localProjectPath;
-    exports.browser = wd.promiseChainRemote(host, port);
+    exports.browser = exports.wd.promiseChainRemote(host, port);
 
     exports.desired = {
-        name:"Test Framework - Selenium wd",
-        browserName:"Chrome",
-        platform:"OS X 10.8",
-        version: '35'
+        browserName:"chrome",
     };
 }
 
@@ -78,4 +75,3 @@ fs.unlink(nameOfTestLinkFile, function(err) {
 });
     
 exports.writeToFile("Sauce Test Reults");
-

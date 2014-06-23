@@ -1,6 +1,5 @@
-var webdriver = require('wd');
-var log = require('custom-logger').config({ level: 0 }); // TODO: Change to 2 for sauce
 var browser;
+var log = require("../bootstrap").log;
 
 // Page Elements Here
 // NOTE: No other customer page-specific names should be anywhere 
@@ -14,11 +13,22 @@ var mobiquityPage = function(theBrowser) {
 
     // Custom Exported values here
     this.location = "http://www.mobiquityinc.com/";
-    this.mobiquityLinkText = 
-    '<em>Mobiquity</em>: Enterprise Mobile Apps, Strategy &amp; Solutions';
     this.mobiquityPageTitle = 
     'Enterprise Mobile Apps, Strategy & Solutions | Mobiquity';
 };
 
+mobiquityPage.prototype.getPage = function(done) {
+    browser.get('http://www.mobiquityinc.com/', function(err, url) {
+            log.info("done with browser.get");
+        if(err) {
+            log.error("Couldn't load page: " + err);
+            done(err);
+        }
+        else {
+            log.info("Loaded " + url);
+            done();
+        }
+    });
+};
 
 module.exports = mobiquityPage;
