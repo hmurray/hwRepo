@@ -3,13 +3,6 @@ var bootstrap = require('../bootstrap');
 var log = bootstrap.log;
 var browser;
 
-// NOTE: No other customer page-specific names should be anywhere 
-//   but at the top of the file or the top of the page object
-
-// NOTE1: this is testing Kokapena as a test app
-//  https://ease.apperian.com/index.php/application/28459/appdetails#detailsTab-tab
-
-// // Page Elements Here
 var dashboardObjects = {
 	doc3DownloadXPath: "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[3]/UIAButton[1]",
 	doc3XPath: "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[3]/UIAStaticText[1]",
@@ -48,6 +41,7 @@ isVisible = function (done) {
 							log.info("Found File 1, Element: " + el);
 							el.click(function(err) {
 								log.warn(err);
+								//gets to this point then has a server side error
 						// 		log.info("File Clicked");
 						// 		browser.waitForElementByXPath(dashboardObjects.doc3File1AnnoBttnXPath, handleErrors(done, function(err, el) { 
 									
@@ -61,44 +55,6 @@ isVisible = function (done) {
 		}));
 	}));
 } 
-
-
-
-
-/*
-dashboardPage.prototype.clickDocument = function(done) {
-	browser.waitForElementByXPath(dashboardObjects.doc3DownloadXPath, handleErrors(done, function(err, el) {
-		el.click(handleErrors(done, function(err) {
-			browser.sleep(10000, function(err) {
-				if (err) {
-					log.warn("Sleep Failed " + err);
-					done(err);
-				}
-				else {
-					log.info("Waited for five seconds");
-					browser.waitForElementByXPath(dashboardObjects.downloadWindowXPath, function(err, el) {
-						if (el == undefined) {
-							log.info("Window not there");
-							browser.clickElement(dashboardObjects.doc3XPath, function(err){
-								if(err) {
-									done(err);
-								}
-								else {
-									done();
-								}
-							})
-						}
-						else {
-							log.info("Window there");
-						}
-					});
-				}
-			});
-		}));
-	}));	
-}; 
-
-*/
 
 
 
